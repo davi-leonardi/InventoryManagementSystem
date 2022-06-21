@@ -23,5 +23,8 @@ namespace InventoryManSys.Models
         [Required]
         public Perm Permission { get; set; } = Perm.User;
 
+        //Navigation property
+        public ICollection<Order> Orders { get; set; }
+
     }
 }
