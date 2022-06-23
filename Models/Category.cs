@@ -9,6 +9,7 @@ namespace InventoryManSys.Models
         public int Id { get; init; }
         [Required]
         [DisplayName("Category Name")]
+        [StringLength(30)]
         public string Name { get; set; }
         public int Units { get; set; } = 0;
 

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "djS0X/xpU8/GDt5+VLkXBbYgkqNcrcUMN0d7YPMZY0qxKWEBEvpIH5TWMu6yjnMncMk8HPhEZjcZ48laGgt8Vg==",
+  "dgSpecHash": "WNpZGeXPJPurQRMhm6kq8aBs1QjxoK9w7WdEDOyokFKf4PCcUrt36c1u0qR1K0VN9azEb+3i3Xq/pY6Vx0MQog==",
   "success": true,
   "projectFilePath": "C:\\C#\\InventoryManSys\\InventoryManSys.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PICHAU\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\PICHAU\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

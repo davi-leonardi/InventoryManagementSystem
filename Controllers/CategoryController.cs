@@ -1,5 +1,6 @@
 ﻿using InventoryManSys.Data;
 using InventoryManSys.Models;
+using InventoryManSys.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -35,8 +36,10 @@ namespace InventoryManSys.Controllers
         // GET: CategoryController/Create
         public IActionResult Create()
         {
-
-            return View();
+            var categoryToBeCreated = new CategoryVM();
+            categoryToBeCreated.Warehouses = _Db.Warehouses.Select(w => w.Name,);
+            categoryToBeCreated.Warehouses.ForEach(Console.WriteLine);
+            return View(categoryToBeCreated);
         }
 
         [Route("Create")]

@@ -16,12 +16,11 @@ namespace InventoryManSys.Models
         [Required]
         public string Location { get; set; }
         [Required]
+        [DisplayName("Max Capacity (units)")]
         public int MaxCapacity { get; set; }
 
         //Navigation Property
         [BindNever]
-
         public ICollection<Category> Categories { get; set; }
-
     }
 }

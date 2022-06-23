@@ -1,5 +1,7 @@
 using InventoryManSys.Data;
+using InventoryManSys.Mappers;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("InvManSysBD"));
 });
 
+builder.Services.AddAutoMapper(typeof(WarehouseProfille));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
