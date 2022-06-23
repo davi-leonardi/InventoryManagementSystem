@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManSys.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220620201701_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220622181831_mig")]
+    partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,6 +97,9 @@ namespace InventoryManSys.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -109,6 +112,8 @@ namespace InventoryManSys.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Orders");
                 });
@@ -206,6 +211,17 @@ namespace InventoryManSys.Migrations
                     b.Navigation("Warehouse");
                 });
 
+            modelBuilder.Entity("InventoryManSys.Models.Order", b =>
+                {
+                    b.HasOne("InventoryManSys.Models.Employee", "Employee")
+                        .WithMany("Orders")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("InventoryManSys.Models.Product", b =>
                 {
                     b.HasOne("InventoryManSys.Models.Category", "Category")
@@ -220,6 +236,11 @@ namespace InventoryManSys.Migrations
             modelBuilder.Entity("InventoryManSys.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("InventoryManSys.Models.Employee", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("InventoryManSys.Models.Warehouse", b =>

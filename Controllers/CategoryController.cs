@@ -2,6 +2,7 @@
 using InventoryManSys.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InventoryManSys.Controllers
 {
@@ -34,9 +35,6 @@ namespace InventoryManSys.Controllers
         // GET: CategoryController/Create
         public IActionResult Create()
         {
-            var WNames = from w in _Db.Warehouses select w.Name;
-            ViewData["Warehouses"] = WNames;
-            //Console.WriteLine($"---------------> {WNames} <-------------");
 
             return View();
         }

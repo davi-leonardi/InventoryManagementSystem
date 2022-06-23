@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManSys.Models
@@ -13,9 +15,12 @@ namespace InventoryManSys.Models
         public string Name { get; set; }
         [Required]
         public string Location { get; set; }
+        [Required]
         public int MaxCapacity { get; set; }
 
         //Navigation Property
+        [BindNever]
+
         public ICollection<Category> Categories { get; set; }
 
     }
