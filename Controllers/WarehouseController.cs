@@ -61,9 +61,13 @@ namespace InventoryManSys.Controllers
         }
 
         [HttpGet("Edit")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
+            if(id == null) return BadRequest();
+
             var warehouse = _Db.Warehouses.Find(id);
+
+            if (warehouse == null) return NotFound();
 
             return View(warehouse);
         }

@@ -9,6 +9,7 @@ namespace InventoryManSys.Mappers
         public CategoryProfille()
         {
             CreateMap<CategoryVM, Category>();
+            CreateMap<Category, CategoryVM>();
         }
     }
 }

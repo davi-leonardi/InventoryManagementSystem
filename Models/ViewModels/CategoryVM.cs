@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,9 +16,9 @@ namespace InventoryManSys.Models.ViewModels
         [StringLength(30)]
         public string Name { get; set; }
         public int Units { get; set; } = 0;
-        public string SelectedWarehouse { get; set; }
-        //public List<string> Warehouses { get; set; }
-        public List<SelectList> Warehouses { get; set; }
+        [DisplayName("Select warehouse")]
+        public List<SelectListItem> Warehouses { get; set; }
         public int WarehouseId { get; set; }
+        public string WarehouseName { get; set; }
     }
 }

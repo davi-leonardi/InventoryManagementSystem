@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManSys.Models
@@ -15,7 +16,10 @@ namespace InventoryManSys.Models
 
         //Navigation Property
         public ICollection<Product> Products { get; set; }
+        [Required]
         public int WarehouseId { get; set; }
+        [DisplayName("Warehouse Name")]
+        public string WarehouseName { get; set; }
         public Warehouse Warehouse { get; set; }
     }
 }

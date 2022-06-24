@@ -1,4 +1,5 @@
-﻿using InventoryManSys.Data;
+﻿using AutoMapper;
+using InventoryManSys.Data;
 using InventoryManSys.Models;
 using InventoryManSys.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -12,10 +13,12 @@ namespace InventoryManSys.Controllers
     {
 
         private readonly ApplicationDbContext _Db;
+        private readonly IMapper _mapper;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(ApplicationDbContext db, IMapper mapper)
         {
             _Db = db;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -24,71 +27,124 @@ namespace InventoryManSys.Controllers
             return View(categories);
         }
 
-        [Route("Details/{id}")]
-        // GET: CategoryController/Details/5
-        public IActionResult Details(int id)
+        [Route("Details")]
+        public IActionResult Details(int? id)
         {
-            return View();
+            if (id == null) return BadRequest();
+
+            var ToBeDetailed = _Db.Categories.Find(id);
+
+            if(ToBeDetailed == null) return NotFound();
+
+            return View(ToBeDetailed);
         }
 
-        [Route("Create")]
-        [HttpGet]
-        // GET: CategoryController/Create
+        [HttpGet("Create")]
         public IActionResult Create()
         {
             var categoryToBeCreated = new CategoryVM();
-            categoryToBeCreated.Warehouses = _Db.Warehouses.Select(w => w.Name,);
-            categoryToBeCreated.Warehouses.ForEach(Console.WriteLine);
+            var wareHouseNames = _Db.Warehouses
+                    .Select(i => new SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    }).ToList();
+            categoryToBeCreated.Warehouses = wareHouseNames;
             return View(categoryToBeCreated);
         }
 
         [Route("Create")]
-        // POST: CategoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([Bind("Name, Units, WarehouseId")]CategoryVM categoryVM)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                var category = _mapper.Map<Category>(categoryVM);
+                var warehouse = _Db.Warehouses.Find(categoryVM.WarehouseId);
+
+                if (warehouse == null) return NotFound();
+
+                category.WarehouseName = warehouse.Name;
+                category.Warehouse = warehouse;
+
+                _Db.Categories.Add(category);            
+                _Db.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
 
-        [Route("Edit/{id}")]
-        // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet("Edit")]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if(id == null) return BadRequest();
+
+            var category = _Db.Categories.Find(id);
+
+            if (category == null) return NotFound();
+
+            var categoryVM = _mapper.Map<CategoryVM>(category);
+
+            categoryVM.Warehouses = _Db.Warehouses
+                    .Select(i => new SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    }).ToList();
+
+
+            return View(categoryVM);
         }
 
-        // POST: CategoryController/Edit/5
-        [HttpPost("[action]/{id}")]
+        [HttpPost("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int? id, CategoryVM categoryVM)
         {
+
+            if (!ModelState.IsValid || id == null || id != categoryVM.Id)
+            {
+                return BadRequest();
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                var warehouse = _Db.Warehouses.Find(categoryVM.WarehouseId);
+
+                if (warehouse == null) return NotFound();
+
+                categoryVM.WarehouseName = warehouse.Name;
+                var category = _mapper.Map<Category>(categoryVM);
+                _Db.Update(category);
+                _Db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
 
-        [Route("[action]/{id}")]
-        // GET: CategoryController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet("Delete")]
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if(id == null) return BadRequest();
+
+            var ToBeDeleted = _Db.Categories.Find(id);
+
+            if (ToBeDeleted == null) return NotFound();
+
+            return View(ToBeDeleted);
         }
 
         // POST: CategoryController/Delete/5
-        [HttpPost("[action]/{id}")]
+        [HttpPost("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
