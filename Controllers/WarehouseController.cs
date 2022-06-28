@@ -110,12 +110,14 @@ namespace InventoryManSys.Controllers
 
             var warehouseToDelete = _Db.Warehouses.Find(id);
 
+            if(warehouseToDelete == null) return NotFound();
+
             return View(warehouseToDelete);
         }
 
         [HttpPost("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int? id, [Bind("Id, Name, Location, MaxCapacity")]WarehouseVM warehouseVM)
+        public IActionResult Delete(int? id, [Bind("Id")]WarehouseVM warehouseVM)
         {
             if(id == null || id != warehouseVM.Id || !ModelState.IsValid) return BadRequest();
 

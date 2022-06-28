@@ -15,11 +15,14 @@ namespace InventoryManSys.Models
         [Range(0, 9999.99, ErrorMessage = "Invalid Price")]
         public decimal Price { get; set; }
         [Required]
-        [DisplayName("Expiration Date")]
-        public DateTime ExpirationDate { get; set; }
+        [DisplayName("Quantity (Units)")]
+        public int Quantity { get; set; } = 0;
 
         //Navigation Property
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
+
     }
 }

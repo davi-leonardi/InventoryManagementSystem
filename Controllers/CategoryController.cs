@@ -4,6 +4,7 @@ using InventoryManSys.Models;
 using InventoryManSys.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InventoryManSys.Controllers
@@ -143,18 +144,23 @@ namespace InventoryManSys.Controllers
             return View(ToBeDeleted);
         }
 
-        // POST: CategoryController/Delete/5
         [HttpPost("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int? id, CategoryVM categoryVM)
         {
+            if (id==null || !ModelState.IsValid || id != categoryVM.Id) return BadRequest();
+
             try
             {
+                var categoryToDelete = _Db.Categories.Find(id);
+                _Db.Remove(categoryToDelete);
+                _Db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
     }
