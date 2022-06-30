@@ -20,8 +20,25 @@ namespace InventoryManSys.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _Db.Products;
-            return View(products);
+            try
+            {
+                List<Product> products = _Db.Products.ToList();
+                List<ProductVM> productsVM = new List<ProductVM>();
+
+                foreach (Product product in products)
+                {
+                    var productVM = _mapper.Map<ProductVM>(product);
+                    var category = _Db.Categories.Find(product.CategoryId);
+                    productVM.CategoryName = category.Name;
+                    productsVM.Add(productVM);
+                }
+
+                return View(productsVM.AsEnumerable());
+            }
+            catch
+            {
+                return NotFound();
+            }         
         }
 
         [Route("Details")]
@@ -30,7 +47,6 @@ namespace InventoryManSys.Controllers
             if (id == null) return BadRequest();
 
             var product = _Db.Products.Find(id);
-            Console.WriteLine(product.Category);
 
             try
             {

@@ -34,7 +34,14 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Name" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        @if (ViewData["IsEmpty"] == "False"){
+            <p style="color:red">Category is Not Empty</p>
+            <input type="submit" disabled value="Delete" class="btn btn-danger" />
+        }
+        else
+        {
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        }
+        | <a asp-action="Index">Back to List</a>
     </form>
 </div>

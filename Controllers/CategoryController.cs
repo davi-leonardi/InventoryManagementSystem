@@ -139,6 +139,8 @@ namespace InventoryManSys.Controllers
 
             var ToBeDeleted = _Db.Categories.Find(id);
 
+            ViewData["IsEmpty"] = ToBeDeleted.Units > 0 ? "False" : "True";            
+
             if (ToBeDeleted == null) return NotFound();
 
             return View(ToBeDeleted);

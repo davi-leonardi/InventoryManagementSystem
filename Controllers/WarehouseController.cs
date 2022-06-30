@@ -93,11 +93,16 @@ namespace InventoryManSys.Controllers
         {
             if (id == null) return BadRequest();
 
-            var warehouseToDetail = _Db.Warehouses.Find(id);
-
-            if(warehouseToDetail == null) return NotFound();
-
-            return View(warehouseToDetail);
+            try
+            {
+                var warehouse = _Db.Warehouses.Find(id);
+                var warehouseVM = _mapper.Map<WarehouseVM>(warehouse);
+                return View(warehouseVM);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("Delete")]
