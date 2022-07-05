@@ -9,6 +9,7 @@ namespace InventoryManSys.Mappers
         public WarehouseProfille()
         {
             CreateMap<WarehouseVM, Warehouse>(); //maps automatically the first class to the second (properties must have the same name)
+            CreateMap<Warehouse, WarehouseVM>();
         }
     }
 }

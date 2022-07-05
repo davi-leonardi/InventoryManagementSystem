@@ -1,19 +1,44 @@
 using InventoryManSys.Data;
 using InventoryManSys.Mappers;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using InventoryManSys.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("InvManSysBD"));
 });
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddDefaultTokenProviders()
+        .AddDefaultUI()
+        .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    //options.Cookie.Expiration 
+
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+    //options.ReturnUrlParameter=""
+});
+
 builder.Services.AddAutoMapper(typeof(WarehouseProfille));
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,9 +53,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapRazorPages();
 
 app.Run();

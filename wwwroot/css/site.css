@@ -20,3 +20,7 @@ body {
 .form-group{
     padding-bottom:20px;
 }
+
+.form-floating{
+    margin-bottom:10px;
+}

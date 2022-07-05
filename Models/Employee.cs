@@ -10,11 +10,9 @@ namespace InventoryManSys.Models
     public class Employee
     {
         [Key]
-        public int Id { get; init; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
-        public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -22,9 +20,6 @@ namespace InventoryManSys.Models
         public string JobRole { get; set; }
         [Required]
         public Perm Permission { get; set; } = Perm.User;
-
-        //Navigation property
-        public ICollection<Order> Orders { get; set; }
 
     }
 }

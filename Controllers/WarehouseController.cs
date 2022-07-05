@@ -4,10 +4,12 @@ using InventoryManSys.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using InventoryManSys.ViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InventoryManSys.Controllers
 {
     [Route("Warehouse")]
+    [Authorize]
     public class WarehouseController : Controller
     {
         private readonly ApplicationDbContext _Db;
@@ -115,7 +117,9 @@ namespace InventoryManSys.Controllers
 
             var warehouseToDelete = _Db.Warehouses.Find(id);
 
-            if(warehouseToDelete == null) return NotFound();
+            if (warehouseToDelete == null) return NotFound();
+
+            ViewData["IsEmpty"] = warehouseToDelete.CurrentStorage > 0 ? "False" : "True";
 
             return View(warehouseToDelete);
         }

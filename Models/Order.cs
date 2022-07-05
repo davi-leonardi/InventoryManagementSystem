@@ -22,9 +22,5 @@ namespace InventoryManSys.Models
         public bool IsCompleted { get; set; } = false;
         public DateTime CreatedDate { get; set; }
 
-        //Foreign Key
-        public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
-
     }
 }
