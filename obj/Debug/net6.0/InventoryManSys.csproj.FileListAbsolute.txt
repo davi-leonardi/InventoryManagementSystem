@@ -271,3 +271,5 @@ C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedd
 C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\C#\InventoryManSys\obj\Debug\net6.0\InventoryManSys.MvcApplicationPartsAssemblyInfo.cs
+C:\C#\InventoryManSys\bin\Debug\net6.0\SendGrid.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\StarkbankEcdsa.dll

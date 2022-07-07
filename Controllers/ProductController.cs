@@ -2,10 +2,12 @@
 using InventoryManSys.Data;
 using InventoryManSys.Models;
 using InventoryManSys.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManSys.Controllers
 {
+    [Authorize]
     [Route("Product")]
     public class ProductController : Controller
     {

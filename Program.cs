@@ -3,6 +3,8 @@ using InventoryManSys.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using InventoryManSys.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using InventoryManSys.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
     //options.ReturnUrlParameter=""
 });
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 builder.Services.AddAutoMapper(typeof(WarehouseProfille));
 

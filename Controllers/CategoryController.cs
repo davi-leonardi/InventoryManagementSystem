@@ -2,6 +2,7 @@
 using InventoryManSys.Data;
 using InventoryManSys.Models;
 using InventoryManSys.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InventoryManSys.Controllers
 {
+    [Authorize]
     [Route("Category")]
     public class CategoryController : Controller
     {
