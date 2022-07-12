@@ -8,20 +8,18 @@ namespace InventoryManSys.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(30, ErrorMessage = "Name should have less than 30 characters")]
-        [DisplayName("Product Name")]
         public string Name { get; set; }
         [Required]
-        [Range(0, 9999.99, ErrorMessage = "Invalid Price")]
         public decimal Price { get; set; }
         [Required]
-        [DisplayName("Quantity (Units)")]
-        public int Quantity { get; set; } = 0;
+        public int Quantity { get; set; }
 
         //Navigation Property
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public Category Category { get; set; }
         public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
         public Supplier Supplier { get; set; }
 
     }

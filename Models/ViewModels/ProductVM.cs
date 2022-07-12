@@ -10,11 +10,21 @@ namespace InventoryManSys.Models.ViewModels
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        [StringLength(30, ErrorMessage = "Name should have less than 30 characters")]
         public string Name { get; set; }
+        [Required]
+        [Range(0, 99999.99, ErrorMessage = "Invalid Price")]
+        [DisplayName("Price (USD$)")]
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        [DisplayName("Category Name")]
+        [DisplayName("Quantity (Units)")]
+        public int Quantity { get; set; } = 0;
+        public List<SelectListItem> Categories { get; set; }
+        public int CategoryId { get; set; }
+        [DisplayName("Category")]
         public string CategoryName { get; set; }
+        public List<SelectListItem> Suppliers { get; set; }
+        public int SupplierId { get; set; }
         [DisplayName("Supplier")]
         public string SupplierName { get; set; }
     }

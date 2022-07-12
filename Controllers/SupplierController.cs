@@ -125,14 +125,6 @@ namespace InventoryManSys.Controllers
         public IActionResult Delete(int? id, Supplier supplier)
         {
 
-            foreach (var modelState in ViewData.ModelState.Values)
-            {
-                foreach (ModelError error in modelState.Errors)
-                {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-            }
-
             if (!ModelState.IsValid || id == null || supplier.Id != id) return BadRequest();
 
             try
