@@ -1,0 +1,59 @@
+﻿@using InventoryManSys.Models.ViewModels
+@model IEnumerable<ProductVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h1>Add Products to the Cart</h1>
+<p>
+    <a asp-action="Cart">Shopping Cart</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <form asp-action="AddToCart">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@item.Id">
+                <input type="hidden" asp-for="@item.Name">
+                <input type="hidden" asp-for="@item.Price">
+                <td>
+                    <input asp-for="@item.Quantity" value="1" class="form-control" style="inline-size:100px">
+                    <span asp-validation-for="@item.Quantity" class="text-danger"></span>
+                </td>
+                <td>
+                    <input type="submit" value="Add To Cart" class="btn btn-primary" />
+                </td>
+            </form>
+        </tr>
+}
+    </tbody>
+</table>

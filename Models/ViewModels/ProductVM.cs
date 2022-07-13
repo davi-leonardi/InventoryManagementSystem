@@ -14,9 +14,10 @@ namespace InventoryManSys.Models.ViewModels
         [StringLength(30, ErrorMessage = "Name should have less than 30 characters")]
         public string Name { get; set; }
         [Required]
-        [Range(0, 99999.99, ErrorMessage = "Invalid Price")]
+        [Range(0, 99999.99, ErrorMessage = "Invalid Price (0 - 99999.99)")]
         [DisplayName("Price (USD$)")]
         public decimal Price { get; set; }
+        [Range(0, 10000, ErrorMessage = "Invalid Quantity (0 - 10000)")]
         [DisplayName("Quantity (Units)")]
         public int Quantity { get; set; } = 0;
         public List<SelectListItem> Categories { get; set; }
