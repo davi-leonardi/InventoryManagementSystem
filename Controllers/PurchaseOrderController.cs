@@ -3,6 +3,7 @@ using InventoryManSys.Data;
 using InventoryManSys.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace InventoryManSys.Controllers
 {
@@ -36,10 +37,24 @@ namespace InventoryManSys.Controllers
 
         [HttpPost("AddToCart")]
         [ValidateAntiForgeryToken]
-        public IActionResult AddToCart([Bind("Id, Name, Price, Quantity")]ProductVM productVM)
+        public IActionResult AddToCart(ProductVM productVM)
         {
+            try
+            {
+                cart.ProductIds.Add(productVM.Id);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-            return View();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("ShoppingCart")]
+        public IActionResult ShoppingCart()
+        {
+            return View(cart);
         }
     }
 }
