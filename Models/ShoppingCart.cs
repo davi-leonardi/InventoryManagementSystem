@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManSys.Models
 {
@@ -6,11 +8,7 @@ namespace InventoryManSys.Models
     {
         [Key]
         public int Id { get; set; }
-
         public string Description { get; set; }
-
-        public List<int> ProductIds { get; set; }
-
-        public string OwnerId { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

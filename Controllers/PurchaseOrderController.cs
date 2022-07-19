@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using InventoryManSys.Data;
+using InventoryManSys.Models;
 using InventoryManSys.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -14,11 +16,15 @@ namespace InventoryManSys.Controllers
 
         private readonly ApplicationDbContext _Db;
         private readonly IMapper _mapper;
+        private readonly ShoppingCartVM _shoppingCartVM;
+        private readonly UserManager<Models.ApplicationUser> _userManager;
 
-        public PurchaseOrderController(ApplicationDbContext db, IMapper mapper)
+        public PurchaseOrderController(ApplicationDbContext db, IMapper mapper, UserManager<Models.ApplicationUser> userManager)
         {
             _Db = db;
             _mapper = mapper;
+            _shoppingCartVM = new ShoppingCartVM();
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -39,9 +45,12 @@ namespace InventoryManSys.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddToCart(ProductVM productVM)
         {
+
             try
             {
-                cart.ProductIds.Add(productVM.Id);
+                //Console.WriteLine(ModelState.IsValid);
+                //Console.WriteLine(productVM.Id);
+                
             }
             catch
             {
@@ -54,7 +63,7 @@ namespace InventoryManSys.Controllers
         [HttpGet("ShoppingCart")]
         public IActionResult ShoppingCart()
         {
-            return View(cart);
+            return View();
         }
     }
 }
