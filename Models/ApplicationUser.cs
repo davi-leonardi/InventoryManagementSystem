@@ -4,7 +4,7 @@ namespace InventoryManSys.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public int ShoppingCart { get; set; }
+        public int CartId { get; set; }
         public ShoppingCart Cart { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace InventoryManSys.Data
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
 
     }
 }

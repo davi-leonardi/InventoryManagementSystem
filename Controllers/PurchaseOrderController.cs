@@ -16,14 +16,12 @@ namespace InventoryManSys.Controllers
 
         private readonly ApplicationDbContext _Db;
         private readonly IMapper _mapper;
-        private readonly ShoppingCartVM _shoppingCartVM;
         private readonly UserManager<Models.ApplicationUser> _userManager;
 
         public PurchaseOrderController(ApplicationDbContext db, IMapper mapper, UserManager<Models.ApplicationUser> userManager)
         {
             _Db = db;
             _mapper = mapper;
-            _shoppingCartVM = new ShoppingCartVM();
             _userManager = userManager;
         }
 
@@ -38,24 +36,37 @@ namespace InventoryManSys.Controllers
                 productsVM.Add(prouductVM);
             }
 
-            return View(productsVM.AsEnumerable());
+            return View(productsVM);
         }
 
         [HttpPost("AddToCart")]
         [ValidateAntiForgeryToken]
-        public IActionResult AddToCart(ProductVM productVM)
+        public IActionResult AddToCart(int Id, int quantity)
         {
 
-            try
-            {
-                //Console.WriteLine(ModelState.IsValid);
-                //Console.WriteLine(productVM.Id);
-                
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            //try
+            //{
+            var product = _Db.Products.Find(Id);
+            CartProduct cartProduct = new CartProduct();
+            cartProduct.Name = product.Name;
+            cartProduct.Quantity = quantity;
+            decimal TotalPrice = (product.Price * quantity);
+            cartProduct.TotalPrice = TotalPrice;
+            cartProduct.Product = product;
+            cartProduct.ProductId = product.Id;
+            _Db.Add(cartProduct);
+
+                var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
+                var cart = _Db.ShoppingCarts.Find(user.CartId);
+                cart.Products.Add(cartProduct);
+                cart.TotalPrice += TotalPrice;
+                _Db.SaveChanges();
+            
+            //}
+            //catch
+            //{
+            //    return BadRequest();
+            //}
 
             return RedirectToAction("Index");
         }

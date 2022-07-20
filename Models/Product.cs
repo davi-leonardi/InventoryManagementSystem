@@ -21,6 +21,5 @@ namespace InventoryManSys.Models
         public int SupplierId { get; set; }
         public string SupplierName { get; set; }
         public Supplier Supplier { get; set; }
-
     }
 }

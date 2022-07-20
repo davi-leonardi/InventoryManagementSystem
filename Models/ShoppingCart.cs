@@ -8,7 +8,7 @@ namespace InventoryManSys.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Description { get; set; }
-        public List<Product> Products { get; set; }
+        public List<CartProduct> Products { get; set; } = new List<CartProduct>();
+        public decimal TotalPrice { get; set; }
     }
 }

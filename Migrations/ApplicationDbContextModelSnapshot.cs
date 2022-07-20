@@ -17,7 +17,7 @@ namespace InventoryManSys.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -30,7 +30,7 @@ namespace InventoryManSys.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CartId")
+                    b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -70,9 +70,6 @@ namespace InventoryManSys.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ShoppingCart")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -93,6 +90,39 @@ namespace InventoryManSys.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("InventoryManSys.Models.CartProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("CartProducts");
                 });
 
             modelBuilder.Entity("InventoryManSys.Models.Category", b =>
@@ -207,9 +237,6 @@ namespace InventoryManSys.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ShoppingCartId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
@@ -219,8 +246,6 @@ namespace InventoryManSys.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ShoppingCartId");
 
                     b.HasIndex("SupplierId");
 
@@ -235,8 +260,8 @@ namespace InventoryManSys.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -447,9 +472,26 @@ namespace InventoryManSys.Migrations
                 {
                     b.HasOne("InventoryManSys.Models.ShoppingCart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cart");
+                });
+
+            modelBuilder.Entity("InventoryManSys.Models.CartProduct", b =>
+                {
+                    b.HasOne("InventoryManSys.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InventoryManSys.Models.ShoppingCart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ShoppingCartId");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("InventoryManSys.Models.Category", b =>
@@ -470,10 +512,6 @@ namespace InventoryManSys.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("InventoryManSys.Models.ShoppingCart", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ShoppingCartId");
 
                     b.HasOne("InventoryManSys.Models.Supplier", "Supplier")
                         .WithMany("Products")
