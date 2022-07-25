@@ -110,17 +110,17 @@ namespace InventoryManSys.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ShoppingCartId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("cartId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ShoppingCartId");
+                    b.HasIndex("cartId");
 
                     b.ToTable("CartProducts");
                 });
@@ -487,11 +487,15 @@ namespace InventoryManSys.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InventoryManSys.Models.ShoppingCart", null)
+                    b.HasOne("InventoryManSys.Models.ShoppingCart", "cart")
                         .WithMany("Products")
-                        .HasForeignKey("ShoppingCartId");
+                        .HasForeignKey("cartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("cart");
                 });
 
             modelBuilder.Entity("InventoryManSys.Models.Category", b =>

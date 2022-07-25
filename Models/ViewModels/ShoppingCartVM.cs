@@ -5,17 +5,11 @@ using System.ComponentModel.DataAnnotations;
 namespace InventoryManSys.Models.ViewModels
 {
     [BindProperties]
-    [Keyless]
     public class ShoppingCartVM
     {
+        [Key]
         public int Id { get; set; }
-
-        public string Description  { get; set; }
-
-        public List<int> ProductIds { get; set; }
-
-        public List<ProductVM> Products { get; set; }
-
-        public int OwnerId { get; set; }
+        public List<CartProduct> Products { get; set; } = new List<CartProduct>();
+        public decimal TotalPrice { get; set; }
     }
 }

@@ -44,37 +44,91 @@ namespace InventoryManSys.Controllers
         public IActionResult AddToCart(int Id, int quantity)
         {
 
-            //try
-            //{
-            var product = _Db.Products.Find(Id);
-            CartProduct cartProduct = new CartProduct();
-            cartProduct.Name = product.Name;
-            cartProduct.Quantity = quantity;
-            decimal TotalPrice = (product.Price * quantity);
-            cartProduct.TotalPrice = TotalPrice;
-            cartProduct.Product = product;
-            cartProduct.ProductId = product.Id;
-            _Db.Add(cartProduct);
-
+            try
+            {
                 var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
                 var cart = _Db.ShoppingCarts.Find(user.CartId);
-                cart.Products.Add(cartProduct);
+                var product = _Db.Products.Find(Id);
+
+                var duplicated = from p in _Db.CartProducts
+                                 where p.cartId == cart.Id && p.ProductId == product.Id
+                                 select p;
+
+                if (duplicated.Any())
+                {
+                    var existingProduct = duplicated.First();
+                    existingProduct.Quantity += quantity;
+                    existingProduct.TotalPrice += (product.Price * existingProduct.Quantity);
+                    _Db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+
+                CartProduct cartProduct = new CartProduct();
+                cartProduct.Name = product.Name;
+                cartProduct.Quantity = quantity;
+                decimal TotalPrice = (product.Price * quantity);
+                cartProduct.TotalPrice = TotalPrice;
+                cartProduct.Product = product;
+                cartProduct.ProductId = product.Id;
+                cartProduct.cartId = user.CartId;
+                _Db.Add(cartProduct);
+
                 cart.TotalPrice += TotalPrice;
                 _Db.SaveChanges();
-            
-            //}
-            //catch
-            //{
-            //    return BadRequest();
-            //}
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("ShoppingCart")]
         public IActionResult ShoppingCart()
         {
-            return View();
+            try
+            {
+                var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
+                var cart = _Db.ShoppingCarts.Find(user.CartId);
+
+                var cartVM = _mapper.Map<ShoppingCartVM>(cart);
+                var cartProducts = _Db.CartProducts.ToList();
+
+                var cartProduct = from p in _Db.CartProducts
+                                  where p.cartId == cart.Id
+                                  select p;
+
+                cartVM.Products = cartProducts;
+
+                return View(cartVM);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [HttpPost("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int? id)
+        {
+            //try
+            //{
+            Console.WriteLine(id);
+                var cartProductToDelete = _Db.CartProducts.Find(id);
+                _Db.CartProducts.Remove(cartProductToDelete);
+                _Db.SaveChanges();
+
+                return RedirectToAction("ShoppingCart");
+            //}
+            //catch
+            //{
+            //    return NotFound();
+            //}
+
         }
     }
 }

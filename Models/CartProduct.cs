@@ -16,5 +16,8 @@ namespace InventoryManSys.Models
         public int ProductId { get; set; }
         [Required]
         public Product Product { get; set; }
+        public int cartId { get; set; }
+        public ShoppingCart cart { get; set; }
+
     }
 }
