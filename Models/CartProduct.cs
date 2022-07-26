@@ -12,12 +12,15 @@ namespace InventoryManSys.Models
         public decimal TotalPrice { get; set; }
         [Required]
         public int Quantity { get; set; }
+
         [Required]
         public int ProductId { get; set; }
         [Required]
         public Product Product { get; set; }
-        public int cartId { get; set; }
-        public ShoppingCart cart { get; set; }
 
+        public int CartId { get; set; }
+        public ShoppingCart Cart { get; set; }
+
+        public int OrderId { get;set; }
     }
 }

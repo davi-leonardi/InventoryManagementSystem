@@ -51,7 +51,7 @@ namespace InventoryManSys.Controllers
                 var product = _Db.Products.Find(Id);
 
                 var duplicated = from p in _Db.CartProducts
-                                 where p.cartId == cart.Id && p.ProductId == product.Id
+                                 where p.CartId == cart.Id && p.ProductId == product.Id
                                  select p;
 
                 if (duplicated.Any())
@@ -71,7 +71,7 @@ namespace InventoryManSys.Controllers
                 cartProduct.TotalPrice = TotalPrice;
                 cartProduct.Product = product;
                 cartProduct.ProductId = product.Id;
-                cartProduct.cartId = user.CartId;
+                cartProduct.CartId = user.CartId;
                 _Db.Add(cartProduct);
 
                 cart.TotalPrice += TotalPrice;
@@ -97,7 +97,7 @@ namespace InventoryManSys.Controllers
                 var cartProducts = _Db.CartProducts.ToList();
 
                 var cartProduct = from p in _Db.CartProducts
-                                  where p.cartId == cart.Id
+                                  where p.CartId == cart.Id
                                   select p;
 
                 cartVM.Products = cartProducts;
@@ -115,20 +115,52 @@ namespace InventoryManSys.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int? id)
         {
-            //try
-            //{
-            Console.WriteLine(id);
+            try
+            {
                 var cartProductToDelete = _Db.CartProducts.Find(id);
                 _Db.CartProducts.Remove(cartProductToDelete);
                 _Db.SaveChanges();
 
                 return RedirectToAction("ShoppingCart");
-            //}
-            //catch
-            //{
-            //    return NotFound();
-            //}
+            }
+            catch
+            {
+                return NotFound();
+            }
 
+        }
+
+        [HttpPost("PlaceOrder")]
+        [ValidateAntiForgeryToken]
+        public IActionResult PlaceOrder(int? id, ShoppingCartVM shoppingCartVM)
+        {
+            if (id == null || id != shoppingCartVM.Id || !ModelState.IsValid) return BadRequest();
+
+            var order = new Order();
+            order.Type = Order.OrderType.Buy;
+            order.TotalPrice = shoppingCartVM.TotalPrice;
+            order.CreatedDate = DateTime.Now;
+
+            var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
+            order.EmployeeId = user.Id;
+            order.EmployeeName = user.UserName;
+
+            foreach (var product in shoppingCartVM.Products)
+            {
+                product.OrderId = order.Id;
+            }
+
+            _Db.Add(order);
+
+            var newShoppingCart = new ShoppingCart();
+            _Db.Add(newShoppingCart);
+
+            user.Cart = newShoppingCart;
+            user.CartId = newShoppingCart.Id;
+
+            _Db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

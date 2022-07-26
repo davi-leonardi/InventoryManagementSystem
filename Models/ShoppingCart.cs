@@ -8,7 +8,6 @@ namespace InventoryManSys.Models
     {
         [Key]
         public int Id { get; set; }
-        //public ICollection<CartProduct> Products { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }
