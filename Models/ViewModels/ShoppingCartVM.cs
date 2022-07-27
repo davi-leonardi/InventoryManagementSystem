@@ -11,5 +11,6 @@ namespace InventoryManSys.Models.ViewModels
         public int Id { get; set; }
         public List<CartProduct> Products { get; set; } = new List<CartProduct>();
         public decimal TotalPrice { get; set; }
+        public int OrderId { get; set; }
     }
 }

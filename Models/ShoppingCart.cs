@@ -9,5 +9,6 @@ namespace InventoryManSys.Models
         [Key]
         public int Id { get; set; }
         public decimal TotalPrice { get; set; }
+        public int OrderId { get; set; }
     }
 }

@@ -59,5 +59,14 @@
     <input asp-for="@Model.Id" hidden />
     <input asp-for="@Model.Products" hidden/>
     <input asp-for="@Model.TotalPrice" hidden/>
-    <input type="submit" value="Place Order >>" class="btn btn-primary" />
+    <input asp-for="@Model.OrderId" hidden />
+    @if(!Model.Products.Any())
+    {
+        <input type="hidden" value="Place Order >>" class="btn btn-primary" />
+    }
+    else
+    {
+        <input type="submit" value="Place Order >>" class="btn btn-primary" />
+    }
+
 </form>

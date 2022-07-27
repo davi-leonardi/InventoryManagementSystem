@@ -123,8 +123,14 @@ namespace InventoryManSys.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                Order order = new Order();
                 ShoppingCart cart = new ShoppingCart();
+                _Db.Add(order);
                 _Db.Add(cart);
+                _Db.SaveChanges();
+
+                cart.OrderId = order.Id;
+
                 user.Cart = cart;
                 user.CartId = cart.Id;
                 _Db.SaveChanges();

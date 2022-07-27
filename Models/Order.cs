@@ -16,8 +16,8 @@ namespace InventoryManSys.Models
         public bool IsCompleted { get; set; } = false;
         public decimal TotalPrice { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
-
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

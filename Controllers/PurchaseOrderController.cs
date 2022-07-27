@@ -72,6 +72,7 @@ namespace InventoryManSys.Controllers
                 cartProduct.Product = product;
                 cartProduct.ProductId = product.Id;
                 cartProduct.CartId = user.CartId;
+                cartProduct.OrderId = cart.OrderId;
                 _Db.Add(cartProduct);
 
                 cart.TotalPrice += TotalPrice;
@@ -96,11 +97,11 @@ namespace InventoryManSys.Controllers
                 var cartVM = _mapper.Map<ShoppingCartVM>(cart);
                 var cartProducts = _Db.CartProducts.ToList();
 
-                var cartProduct = from p in _Db.CartProducts
+                var cartProduct = from p in cartProducts
                                   where p.CartId == cart.Id
                                   select p;
 
-                cartVM.Products = cartProducts;
+                cartVM.Products = cartProduct.ToList();
 
                 return View(cartVM);
             }
@@ -136,27 +137,27 @@ namespace InventoryManSys.Controllers
         {
             if (id == null || id != shoppingCartVM.Id || !ModelState.IsValid) return BadRequest();
 
-            var order = new Order();
+            var order = _Db.Orders.Find(shoppingCartVM.OrderId);
             order.Type = Order.OrderType.Buy;
             order.TotalPrice = shoppingCartVM.TotalPrice;
             order.CreatedDate = DateTime.Now;
 
             var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
-            order.EmployeeId = user.Id;
-            order.EmployeeName = user.UserName;
-
-            foreach (var product in shoppingCartVM.Products)
-            {
-                product.OrderId = order.Id;
-            }
-
-            _Db.Add(order);
+            order.User = user;
+            order.UserId = user.Id;
+            order.UserName = user.UserName;
+            _Db.Update(order);
 
             var newShoppingCart = new ShoppingCart();
+            var newOrder = new Order();
+            _Db.Add(newOrder);
             _Db.Add(newShoppingCart);
+
+            _Db.SaveChanges();
 
             user.Cart = newShoppingCart;
             user.CartId = newShoppingCart.Id;
+            newShoppingCart.OrderId = newOrder.Id;
 
             _Db.SaveChanges();
 
