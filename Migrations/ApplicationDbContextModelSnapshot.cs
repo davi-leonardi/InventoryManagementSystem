@@ -123,6 +123,8 @@ namespace InventoryManSys.Migrations
 
                     b.HasIndex("CartId");
 
+                    b.HasIndex("OrderId");
+
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartProducts");
@@ -495,6 +497,12 @@ namespace InventoryManSys.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("InventoryManSys.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("InventoryManSys.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -502,6 +510,8 @@ namespace InventoryManSys.Migrations
                         .IsRequired();
 
                     b.Navigation("Cart");
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });

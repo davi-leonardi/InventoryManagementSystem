@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManSys.Models
 {
@@ -9,6 +10,7 @@ namespace InventoryManSys.Models
         [Required]
         public string Name { get; set; }
         [Required]
+        [DisplayName("Total Price")]
         public decimal TotalPrice { get; set; }
         [Required]
         public int Quantity { get; set; }
@@ -22,5 +24,6 @@ namespace InventoryManSys.Models
         public ShoppingCart Cart { get; set; }
 
         public int OrderId { get;set; }
+        public Order Order { get; set; }
     }
 }

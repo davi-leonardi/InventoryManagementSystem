@@ -72,7 +72,11 @@ namespace InventoryManSys.Controllers
                 cartProduct.Product = product;
                 cartProduct.ProductId = product.Id;
                 cartProduct.CartId = user.CartId;
-                cartProduct.OrderId = cart.OrderId;
+
+                var order = _Db.Orders.Find(cart.OrderId);
+
+                cartProduct.Order = order;
+                cartProduct.OrderId = order.Id;
                 _Db.Add(cartProduct);
 
                 cart.TotalPrice += TotalPrice;
@@ -146,6 +150,7 @@ namespace InventoryManSys.Controllers
             order.User = user;
             order.UserId = user.Id;
             order.UserName = user.UserName;
+            order.IsCompleted = true;
             _Db.Update(order);
 
             var newShoppingCart = new ShoppingCart();
