@@ -27,6 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
+            <th>Arrived at Warehouse?</th>
             <th></th>
         </tr>
     </thead>
@@ -48,6 +49,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
+
+                @if(item.HasArrived == true)
+                {
+                    <td style="color:green">True</td>
+                }else
+                {
+                    <td style="color:red">False</td>
+                }
+
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

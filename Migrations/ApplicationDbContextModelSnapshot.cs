@@ -198,6 +198,9 @@ namespace InventoryManSys.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("HasArrived")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 

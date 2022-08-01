@@ -44,8 +44,8 @@ namespace InventoryManSys.Controllers
         public IActionResult AddToCart(int Id, int quantity)
         {
 
-            try
-            {
+            //try
+            //{
                 var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
                 var cart = _Db.ShoppingCarts.Find(user.CartId);
                 var product = _Db.Products.Find(Id);
@@ -73,21 +73,21 @@ namespace InventoryManSys.Controllers
                 cartProduct.ProductId = product.Id;
                 cartProduct.CartId = user.CartId;
 
-                var order = _Db.Orders.Find(cart.OrderId);
+            var order = _Db.Orders.Find(cart.OrderId);
 
-                cartProduct.Order = order;
-                cartProduct.OrderId = order.Id;
+            cartProduct.Order = order;
+            cartProduct.OrderId = order.Id;
                 _Db.Add(cartProduct);
 
                 cart.TotalPrice += TotalPrice;
                 _Db.SaveChanges();
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            //}
+            //catch
+            //{
+            //    return BadRequest();
+            //}
         }
 
         [HttpGet("ShoppingCart")]

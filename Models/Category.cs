@@ -15,7 +15,6 @@ namespace InventoryManSys.Models
         public int Units { get; set; } = 0;
 
         //Navigation Property
-        public List<Product> Products { get; set; }
         [Required]
         public int WarehouseId { get; set; }
         [DisplayName("Warehouse Name")]

@@ -16,7 +16,7 @@ namespace InventoryManSys.Models
         [Required]
         public string Location { get; set; }
         public int CurrentStorage { get; set; } = 0;
-        public bool IsFull { get; set; }
+        public bool IsFull { get; set; } = false;
         [Required]
         [DisplayName("Max Capacity (units)")]
         public int MaxCapacity { get; set; }
