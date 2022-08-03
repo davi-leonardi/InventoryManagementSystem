@@ -6,5 +6,7 @@ namespace InventoryManSys.Models
     {
         public int CartId { get; set; }
         public ShoppingCart Cart { get; set; }
+        public int SCartId { get; set; }
+        public SellingCart SCart { get; set; }
     }
 }

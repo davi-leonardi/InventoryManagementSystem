@@ -17,9 +17,10 @@ namespace InventoryManSys.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<SellingCart> SellingCarts { get; set; }
         public DbSet<CartProduct> CartProducts { get; set; }
+        public DbSet<SCartProduct> SCartProducts { get; set; }
 
     }
 }

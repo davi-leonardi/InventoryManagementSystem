@@ -71,6 +71,7 @@ namespace InventoryManSys.Controllers
                 cartProduct.TotalPrice = TotalPrice;
                 cartProduct.Product = product;
                 cartProduct.ProductId = product.Id;
+                cartProduct.Cart = cart;
                 cartProduct.CartId = user.CartId;
 
             var order = _Db.Orders.Find(cart.OrderId);

@@ -1,0 +1,68 @@
+﻿@using InventoryManSys.Models.ViewModels
+@model List<ProductVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h1>Add Products to the Cart</h1>
+<p>
+    <a asp-action="SellingCart">Selling Cart</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count(); i++) {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => @Model[i].Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @Model[i].Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @Model[i].CategoryName)
+            </td>
+            <form method="post" asp-action="AddToCart">
+                <input type="hidden" name="Id" value="@Model[i].Id">
+                <td>
+                    <input type="number" name="quantity" placeholder="1" value="1" min="1" max="@Model[i].Quantity" class="form-control" style="inline-size:100px">
+                </td>
+                <td>
+                    <input type="submit" value="Add To Cart" class="btn btn-primary"/>
+                </td>
+            </form>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(".btn-primary").click(function() {
+            alert("Adding Product to Cart...");
+        })
+    </script>
+}
+
+
+

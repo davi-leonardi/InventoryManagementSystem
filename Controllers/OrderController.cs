@@ -48,15 +48,28 @@ namespace InventoryManSys.Controllers
             if (id == null) return BadRequest();
 
             Order order = _Db.Orders.Find(id);
-            OrderVM orderVM = _Mapper.Map<OrderVM>(order);
 
-            var cartProducts = from p in _Db.CartProducts
+            if (order.Type == Order.OrderType.Buy)
+            {
+                var cartProducts = from p in _Db.CartProducts
+                           where p.OrderId == id
+                           select p;
+
+                var orderVM = _Mapper.Map<OrderVM>(order);
+                orderVM.Products = cartProducts.ToList();
+
+                return View(orderVM);
+            }
+
+            var scartProducts = from p in _Db.SCartProducts
                                where p.OrderId == id
                                select p;
 
-            orderVM.Products = cartProducts.ToList();
+            var SorderVM = _Mapper.Map<SOrderVM>(order);
+            SorderVM.Products = scartProducts.ToList();
 
-            return View(orderVM);
+            return View(SorderVM);
+
         }
 
         [HttpPost("ConfirmArrival")]
@@ -74,10 +87,12 @@ namespace InventoryManSys.Controllers
                 var product = _Db.Products.Find(cartProduct.ProductId);
                 var category = _Db.Categories.Find(product.CategoryId);
                 var warehouse = _Db.Warehouses.Find(category.WarehouseId);
+                var supplier = _Db.Suppliers.Find(product.SupplierId);
 
                 product.Quantity += cartProduct.Quantity;
                 category.Units += cartProduct.Quantity;
                 warehouse.CurrentStorage += cartProduct.Quantity;
+                supplier.LastOrder = order.CreatedDate;
             }
 
             order.HasArrived = true;

@@ -124,15 +124,22 @@ namespace InventoryManSys.Areas.Identity.Pages.Account
                 var user = CreateUser();
 
                 Order order = new Order();
+                Order Sorder = new Order();
                 ShoppingCart cart = new ShoppingCart();
+                SellingCart SCart = new SellingCart();
                 _Db.Add(order);
                 _Db.Add(cart);
+                _Db.Add(SCart);
+                _Db.Add(Sorder);
                 _Db.SaveChanges();
 
                 cart.OrderId = order.Id;
+                SCart.OrderId = Sorder.Id;
 
                 user.Cart = cart;
                 user.CartId = cart.Id;
+                user.SCart = SCart;
+                user.SCartId = SCart.Id;
                 _Db.SaveChanges();
 
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);

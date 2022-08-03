@@ -1,5 +1,7 @@
-﻿using InventoryManSys.Data;
+﻿using AutoMapper;
+using InventoryManSys.Data;
 using InventoryManSys.Models;
+using InventoryManSys.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -12,19 +14,33 @@ namespace InventoryManSys.Controllers
     public class SupplierController : Controller
     {
         private readonly ApplicationDbContext _Db;
+        private readonly IMapper _Mapper;
 
-        public SupplierController(ApplicationDbContext db)
+        public SupplierController(ApplicationDbContext db, IMapper mapper)
         {
             _Db = db;
+            _Mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var suppliers = _Db.Suppliers.ToList();
+            try
+            {
+                List<Supplier> suppliers = _Db.Suppliers.ToList();
+                List<SupplierVM> suppliersVM = new List<SupplierVM>();
 
-            if (suppliers == null) return NotFound();
+                foreach (Supplier supplier in suppliers)
+                {
+                    var vm = _Mapper.Map<SupplierVM>(supplier);
+                    suppliersVM.Add(vm);
+                }
 
-            return View(suppliers);
+                return View(suppliersVM.AsEnumerable());
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("Create")]
@@ -35,12 +51,13 @@ namespace InventoryManSys.Controllers
 
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Supplier supplier)
+        public IActionResult Create(SupplierVM supplierVM)
         {
             if (!ModelState.IsValid) return BadRequest();
 
             try
             {
+                var supplier = _Mapper.Map<Supplier>(supplierVM);
                 _Db.Suppliers.Add(supplier);
                 _Db.SaveChanges();
             }
@@ -60,7 +77,8 @@ namespace InventoryManSys.Controllers
             try
             {
                 var supplier = _Db.Suppliers.Find(id);
-                return View(supplier);
+                var supplierVM = _Mapper.Map<SupplierVM>(supplier);
+                return View(supplierVM);
             }
             catch
             {
@@ -70,12 +88,13 @@ namespace InventoryManSys.Controllers
 
         [HttpPost("Edit")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int? id, Supplier supplier)
+        public IActionResult Edit(int? id, SupplierVM supplierVM)
         {
-            if (!ModelState.IsValid || id == null || supplier.Id != id) return BadRequest();
+            if (!ModelState.IsValid || id == null || supplierVM.Id != id) return BadRequest();
 
             try
             {
+                var supplier = _Mapper.Map<Supplier>(supplierVM);
                 _Db.Update(supplier);
                 _Db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,7 +114,8 @@ namespace InventoryManSys.Controllers
             try
             {
                 var supplier = _Db.Suppliers.Find(id);
-                return View(supplier);
+                var supplierVM = _Mapper.Map<SupplierVM>(supplier);
+                return View(supplierVM);
             }
             catch
             {
@@ -112,7 +132,8 @@ namespace InventoryManSys.Controllers
             try
             {
                 var supplier = _Db.Suppliers.Find(id);
-                return View(supplier);
+                var supplierVM = _Mapper.Map<SupplierVM>(supplier);
+                return View(supplierVM);
             }
             catch
             {
@@ -122,15 +143,15 @@ namespace InventoryManSys.Controllers
 
         [HttpPost("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int? id, Supplier supplier)
+        public IActionResult Delete(int? id, SupplierVM supplierVM)
         {
 
-            if (!ModelState.IsValid || id == null || supplier.Id != id) return BadRequest();
+            if (!ModelState.IsValid || id == null || supplierVM.Id != id) return BadRequest();
 
             try
             {
-                var supplierToDelete = _Db.Suppliers.Find(id);
-                _Db.Suppliers.Remove(supplierToDelete);
+                var supplier = _Db.Suppliers.Find(id);
+                _Db.Suppliers.Remove(supplier);
                 _Db.SaveChanges();
                 return RedirectToAction("Index");
             }
