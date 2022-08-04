@@ -163,11 +163,15 @@ namespace InventoryManSys.Controllers
         {
             if (id == null) return BadRequest();
 
-            var product = _Db.Products.Find(id);
-
             try
             {
+                var product = _Db.Products.Find(id);
+
                 var ToBeDetailed = _mapper.Map<ProductVM>(product);
+                var category = _Db.Categories.Find(product.CategoryId);
+                var warehouse = _Db.Warehouses.Find(category.WarehouseId);
+
+                ViewBag.Warehouse = warehouse.Name;
 
                 return View(ToBeDetailed);
             }

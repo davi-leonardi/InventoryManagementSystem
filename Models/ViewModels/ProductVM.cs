@@ -18,7 +18,7 @@ namespace InventoryManSys.Models.ViewModels
         [DisplayName("Price (USD$)")]
         public decimal Price { get; set; }
         [Range(0, 10000, ErrorMessage = "Invalid Quantity (0 - 10000)")]
-        [DisplayName("Quantity (Units)")]
+        [DisplayName("Quantity")]
         public int Quantity { get; set; } = 0;
         public List<SelectListItem> Categories { get; set; }
         public int CategoryId { get; set; }

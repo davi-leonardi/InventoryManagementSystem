@@ -12,9 +12,10 @@ namespace InventoryManSys.Models.ViewModels
         [Key]
         public int Id { get; set; }
         [Required]
-        [DisplayName("Category Name")]
+        [DisplayName("Category")]
         [StringLength(30)]
         public string Name { get; set; }
+        [DisplayName("Quantity (units)")]
         public int Units { get; set; } = 0;
         [DisplayName("Select warehouse")]
         public List<SelectListItem> Warehouses { get; set; }

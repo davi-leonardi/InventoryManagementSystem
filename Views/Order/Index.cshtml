@@ -27,7 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
-            <th>Arrived at Warehouse?</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -37,9 +37,17 @@
             <td>
                 #@Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
+                @if(item.Type == OrderVM.OrderType.Buy)
+                {
+                    <td style="color:darkblue">
+                      @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                }else
+                {
+                    <td style="color:darkorange;">
+                      @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                }                                
             <td>
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
@@ -50,12 +58,16 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
 
-                @if(item.HasArrived == true)
+                @if(item.HasArrived == true && item.Type == OrderVM.OrderType.Buy)
                 {
-                    <td style="color:green">True</td>
-                }else
+                    <td style="color:green">Delivered</td>
+                }else if(item.HasArrived == false && item.Type == OrderVM.OrderType.Buy)
                 {
-                    <td style="color:red">False</td>
+                    <td style="color:red">Not Delivered</td>
+                }
+                else
+                {
+                    <td></td>
                 }
 
             <td>

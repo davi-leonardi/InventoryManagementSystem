@@ -52,11 +52,12 @@ namespace InventoryManSys.Controllers
             if (order.Type == Order.OrderType.Buy)
             {
                 var cartProducts = from p in _Db.CartProducts
-                           where p.OrderId == id
-                           select p;
+                                   where p.OrderId == id
+                                   select p;
 
                 var orderVM = _Mapper.Map<OrderVM>(order);
                 orderVM.Products = cartProducts.ToList();
+                ViewBag.BuyOrder = "True";
 
                 return View(orderVM);
             }
@@ -65,8 +66,9 @@ namespace InventoryManSys.Controllers
                                where p.OrderId == id
                                select p;
 
-            var SorderVM = _Mapper.Map<SOrderVM>(order);
-            SorderVM.Products = scartProducts.ToList();
+            var SorderVM = _Mapper.Map<OrderVM>(order);
+            SorderVM.SProducts = scartProducts.ToList();
+            ViewBag.BuyOrder = "False";
 
             return View(SorderVM);
 

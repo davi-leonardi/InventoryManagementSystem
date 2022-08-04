@@ -55,45 +55,89 @@
                     <form method="post" asp-action="ConfirmArrival">
                         False
                         <input asp-for="@Model.Id" hidden>
-                        <input type="submit" class="btn btn-outline-success" style="float:right" value="Confirm Arrival">
+                        <input type="submit" class="btn btn-outline-success" style="float:right" value="Confirm Delivery">
                     </form>
                 </dd>
             }
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Products):
-        </dt>
-        <dd class = "col-sm-10">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Products[0].Quantity)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Products[0].Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Products[0].TotalPrice)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-@foreach (var item in Model.Products) {
-                    <tr>
-                        <td>
-                            x @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            $@Html.DisplayFor(modelItem => item.TotalPrice)
-                        </td>
-                    </tr>
-}
-                </tbody>
-            </table>
-        </dd>
+
+        @if (ViewBag.BuyOrder == "True")
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Products)
+            </dt>
+            <dd class = "col-sm-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Products[0].Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Products[0].Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Products[0].TotalPrice)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>
+                                    x @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    $@Html.DisplayFor(modelItem => item.TotalPrice)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </dd>
+        }
+        else
+        {
+             <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.SProducts)
+            </dt>
+            <dd class = "col-sm-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SProducts[0].Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SProducts[0].Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SProducts[0].TotalPrice)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SProducts)
+                        {
+                            <tr>
+                                <td>
+                                    x @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    $@Html.DisplayFor(modelItem => item.TotalPrice)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </dd>           
+        }
     </dl>
 </div>
 <div>

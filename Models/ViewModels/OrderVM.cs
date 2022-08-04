@@ -14,7 +14,7 @@ namespace InventoryManSys.Models.ViewModels
         public int Id { get; set; }
         public OrderType Type { get; set; }
         public bool IsCompleted { get; set; }
-        [DisplayName("Has Arrived at Warehouse?")]
+        [DisplayName("Delivered at Warehouse?")]
         public bool HasArrived { get; set; }
         [DisplayName("Order Total (USD$)")]
         public decimal TotalPrice { get; set; }
@@ -24,5 +24,6 @@ namespace InventoryManSys.Models.ViewModels
         [DisplayName("Employee")]
         public string UserName { get; set; }
         public List<CartProduct> Products { get; set; }
+        public List<SCartProduct> SProducts { get; set; }
     }
 }
