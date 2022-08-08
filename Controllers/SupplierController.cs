@@ -115,6 +115,13 @@ namespace InventoryManSys.Controllers
             {
                 var supplier = _Db.Suppliers.Find(id);
                 var supplierVM = _Mapper.Map<SupplierVM>(supplier);
+
+                var hasProducts = from p in _Db.Products
+                                  where p.SupplierId == supplier.Id
+                                  select p;
+
+                ViewBag.IsEmpty = (hasProducts.Any()) ? "True" : "False"; 
+
                 return View(supplierVM);
             }
             catch

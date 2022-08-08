@@ -52,7 +52,15 @@
         <input type="hidden" asp-for="Email" />
         <input type="hidden" asp-for="Address" />
         <input type="hidden" asp-for="PhoneNumber" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        @if(ViewBag.IsEmpty == "True")
+        {
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        }
+        else
+        {
+            <p style="color:red">There are products from this supplier in the stock!</p>
+            <input type="submit" disabled value="Delete" class="btn btn-danger" />
+        }
+        | <a asp-action="Index">Back to List</a>
     </form>
 </div>

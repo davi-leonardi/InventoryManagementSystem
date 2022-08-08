@@ -51,15 +51,6 @@ namespace InventoryManSys.Controllers
             _Db.SaveChanges();
 
             return RedirectToAction("Index");
-
-            //foreach (var modelState in ViewData.ModelState.Values)
-            //{
-            //    foreach (ModelError error in modelState.Errors)
-            //    {
-            //        Console.WriteLine(error.ErrorMessage);
-            //    }
-            //}
-
         }
 
         [HttpGet("Edit")]

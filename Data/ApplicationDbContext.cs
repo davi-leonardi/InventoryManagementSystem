@@ -21,6 +21,7 @@ namespace InventoryManSys.Data
         public DbSet<SellingCart> SellingCarts { get; set; }
         public DbSet<CartProduct> CartProducts { get; set; }
         public DbSet<SCartProduct> SCartProducts { get; set; }
+        public DbSet<InventoryManSys.Models.ViewModels.EmployeeVM> EmployeeVM { get; set; }
 
     }
 }

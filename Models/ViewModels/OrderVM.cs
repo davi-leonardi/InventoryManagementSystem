@@ -24,6 +24,7 @@ namespace InventoryManSys.Models.ViewModels
         [DisplayName("Employee")]
         public string UserName { get; set; }
         public List<CartProduct> Products { get; set; }
+        [DisplayName("Products")]
         public List<SCartProduct> SProducts { get; set; }
     }
 }
