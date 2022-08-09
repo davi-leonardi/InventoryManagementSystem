@@ -35,7 +35,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     //options.ReturnUrlParameter=""
 });
 
-builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 builder.Services.AddAutoMapper(typeof(WarehouseProfille));
