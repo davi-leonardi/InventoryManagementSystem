@@ -269,5 +269,9 @@ C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedd
 C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\C#\InventoryManSys\obj\Debug\net6.0\InventoryManSys.MvcApplicationPartsAssemblyInfo.cs
-C:\C#\InventoryManSys\bin\Debug\net6.0\SendGrid.dll
-C:\C#\InventoryManSys\bin\Debug\net6.0\StarkbankEcdsa.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Azure.Core.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Azure.Identity.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Azure.Security.KeyVault.Secrets.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\System.Memory.Data.dll

@@ -1,13 +1,24 @@
 {
   "dependencies": {
+    "secrets2": {
+      "restored": true,
+      "restoreTime": "2022-08-10T19:22:11.8139068Z"
+    },
     "mssql1": {
       "restored": true,
       "restoreTime": "2022-06-20T19:58:20.0206088Z"
-    },
-    "secrets1": {
-      "restored": true,
-      "restoreTime": "2022-06-20T19:58:17.8551785Z"
     }
   },
-  "parameters": {}
+  "parameters": {
+    "secrets2.resourceGroupName": {
+      "Name": "secrets2.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "IMS"
+    },
+    "secrets2.subscriptionId": {
+      "Name": "secrets2.subscriptionId",
+      "Type": "subscription",
+      "Value": "59909824-880f-4164-8859-f865df4ccb74"
+    }
+  }
 }

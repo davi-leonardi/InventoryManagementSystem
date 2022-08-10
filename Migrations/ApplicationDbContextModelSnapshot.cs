@@ -347,6 +347,28 @@ namespace InventoryManSys.Migrations
                     b.ToTable("Suppliers");
                 });
 
+            modelBuilder.Entity("InventoryManSys.Models.ViewModels.EmployeeVM", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeeVM");
+                });
+
             modelBuilder.Entity("InventoryManSys.Models.Warehouse", b =>
                 {
                     b.Property<int>("Id")

@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using InventoryManSys.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using InventoryManSys.Services;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("InvManSysBD"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("IMSDB"));
 });
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -36,6 +39,16 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+var kvUrl = builder.Configuration["KeyVaultConfig:KVUrl"];
+var tenantId = builder.Configuration["KeyVaultConfig:TenantId"];
+var clientId = builder.Configuration["KeyVaultConfig:ClientId"];
+var clientSecret = builder.Configuration["KeyVaultConfig:ClientSecretId"];
+
+var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+var client = new SecretClient(new Uri(kvUrl), credential);
+
+builder.Configuration.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
 
 builder.Services.AddAutoMapper(typeof(WarehouseProfille));
 
