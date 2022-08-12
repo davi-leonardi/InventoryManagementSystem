@@ -44,8 +44,8 @@ namespace InventoryManSys.Controllers
         public IActionResult AddToCart(int Id, int quantity)
         {
 
-            //try
-            //{
+            try
+            {
                 var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
                 var cart = _Db.ShoppingCarts.Find(user.CartId);
                 var product = _Db.Products.Find(Id);
@@ -84,11 +84,11 @@ namespace InventoryManSys.Controllers
                 _Db.SaveChanges();
 
                 return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return BadRequest();
-            //}
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("ShoppingCart")]
@@ -107,6 +107,40 @@ namespace InventoryManSys.Controllers
                                   select p;
 
                 cartVM.Products = cartProduct.ToList();
+
+                List<Warehouse> listofwar1 = new List<Warehouse>();
+
+                foreach (var p in cartProducts)
+                {
+                    var product = _Db.Products.Find(p.ProductId);
+                    var category = _Db.Categories.Find(product.CategoryId);
+                    var warehouse = _Db.Warehouses.Find(category.WarehouseId);
+
+                    listofwar1.Add(warehouse);
+                }
+
+                List<Warehouse> listofwar2 = listofwar1.Distinct().ToList();
+
+                foreach(var p in cartProducts)
+                {
+                    var product = _Db.Products.Find(p.ProductId);
+                    var category = _Db.Categories.Find(product.CategoryId);
+                    var warehouse = _Db.Warehouses.Find(category.WarehouseId);
+
+                    foreach (var w in listofwar2)
+                    {
+                        if(warehouse.Id == w.Id)
+                        {
+                            w.CurrentStorage += p.Quantity;
+                        }
+
+                        if (w.CurrentStorage > w.MaxCapacity)
+                        {
+                            ViewBag.BadCapacity = "True";
+                            return View(cartVM);
+                        }
+                    }
+                }    
 
                 return View(cartVM);
             }
@@ -142,32 +176,40 @@ namespace InventoryManSys.Controllers
         {
             if (id == null || id != shoppingCartVM.Id || !ModelState.IsValid) return BadRequest();
 
-            var order = _Db.Orders.Find(shoppingCartVM.OrderId);
-            order.Type = Order.OrderType.Buy;
-            order.TotalPrice = shoppingCartVM.TotalPrice;
-            order.CreatedDate = DateTime.Now;
+            try
+            {
 
-            var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
-            order.User = user;
-            order.UserId = user.Id;
-            order.UserName = user.UserName;
-            order.IsCompleted = true;
-            _Db.Update(order);
+                var order = _Db.Orders.Find(shoppingCartVM.OrderId);
+                order.Type = Order.OrderType.Buy;
+                order.TotalPrice = shoppingCartVM.TotalPrice;
+                order.CreatedDate = DateTime.Now;
 
-            var newShoppingCart = new ShoppingCart();
-            var newOrder = new Order();
-            _Db.Add(newOrder);
-            _Db.Add(newShoppingCart);
+                var user = _Db.Users.Find(_userManager.GetUserId(HttpContext.User));
+                order.User = user;
+                order.UserId = user.Id;
+                order.UserName = user.UserName;
+                order.IsCompleted = true;
+                _Db.Update(order);
 
-            _Db.SaveChanges();
+                var newShoppingCart = new ShoppingCart();
+                var newOrder = new Order();
+                _Db.Add(newOrder);
+                _Db.Add(newShoppingCart);
 
-            user.Cart = newShoppingCart;
-            user.CartId = newShoppingCart.Id;
-            newShoppingCart.OrderId = newOrder.Id;
+                _Db.SaveChanges();
 
-            _Db.SaveChanges();
+                user.Cart = newShoppingCart;
+                user.CartId = newShoppingCart.Id;
+                newShoppingCart.OrderId = newOrder.Id;
 
-            return RedirectToAction("Index");
+                _Db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

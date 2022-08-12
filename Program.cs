@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("IMSDB"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("localdb"));
 });
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -40,15 +40,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
-var kvUrl = builder.Configuration["KeyVaultConfig:KVUrl"];
-var tenantId = builder.Configuration["KeyVaultConfig:TenantId"];
-var clientId = builder.Configuration["KeyVaultConfig:ClientId"];
-var clientSecret = builder.Configuration["KeyVaultConfig:ClientSecretId"];
+//var kvUrl = builder.Configuration["KeyVaultConfig:KVUrl"];
+//var tenantId = builder.Configuration["KeyVaultConfig:TenantId"];
+//var clientId = builder.Configuration["KeyVaultConfig:ClientId"];
+//var clientSecret = builder.Configuration["KeyVaultConfig:ClientSecretId"];
 
-var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-var client = new SecretClient(new Uri(kvUrl), credential);
+//var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+//var client = new SecretClient(new Uri(kvUrl), credential);
 
-builder.Configuration.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+//builder.Configuration.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
 
 builder.Services.AddAutoMapper(typeof(WarehouseProfille));
 

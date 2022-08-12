@@ -64,9 +64,15 @@
     {
         <input type="hidden" value="Place Order >>" class="btn btn-primary" />
     }
+    else if(ViewBag.BadCapacity == "True")
+    {
+        <input type="submit" value="Place Order >>" class="btn btn-primary" disabled/>
+        <br />
+        <p style="color:red">Max Warehouse Capacity Exceeded!</p>
+    }
     else
     {
-        <input type="submit" value="Place Order >>" class="btn btn-primary" />
+        <input type="submit" value="Place Order >>" class="btn btn-primary"/>        
     }
 
 </form>

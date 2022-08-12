@@ -347,28 +347,6 @@ namespace InventoryManSys.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("InventoryManSys.Models.ViewModels.EmployeeVM", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmployeeVM");
-                });
-
             modelBuilder.Entity("InventoryManSys.Models.Warehouse", b =>
                 {
                     b.Property<int>("Id")
@@ -586,7 +564,7 @@ namespace InventoryManSys.Migrations
             modelBuilder.Entity("InventoryManSys.Models.Category", b =>
                 {
                     b.HasOne("InventoryManSys.Models.Warehouse", "Warehouse")
-                        .WithMany("Categories")
+                        .WithMany()
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -698,11 +676,6 @@ namespace InventoryManSys.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("InventoryManSys.Models.Warehouse", b =>
-                {
-                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }

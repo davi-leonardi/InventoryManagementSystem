@@ -84,7 +84,9 @@ namespace InventoryManSys.Controllers
                                where p.OrderId == order.Id
                                select p;
 
-            foreach(var cartProduct in cartProducts)
+            cartProducts.ToList();
+
+            foreach(var cartProduct in cartProducts.ToList<CartProduct>())
             {
                 var product = _Db.Products.Find(cartProduct.ProductId);
                 var category = _Db.Categories.Find(product.CategoryId);

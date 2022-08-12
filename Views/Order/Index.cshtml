@@ -32,6 +32,10 @@
         </tr>
     </thead>
     <tbody>
+        @if(!Model.Any())
+            {
+                <p style="color:red">No Orders Placed!</p>
+            }
 @foreach (var item in Model) {
         <tr>
             <td>

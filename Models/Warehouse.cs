@@ -15,14 +15,11 @@ namespace InventoryManSys.Models
         public string Name { get; set; }
         [Required]
         public string Location { get; set; }
+        [DisplayName("Current Storage")]
         public int CurrentStorage { get; set; } = 0;
         public bool IsFull { get; set; } = false;
         [Required]
         [DisplayName("Max Capacity (units)")]
         public int MaxCapacity { get; set; }
-
-        //Navigation Property
-        [BindNever]
-        public ICollection<Category> Categories { get; set; }
     }
 }

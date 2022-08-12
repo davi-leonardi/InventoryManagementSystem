@@ -43,7 +43,7 @@
             <form method="post" asp-action="AddToCart">
                 <input type="hidden" name="Id" value="@Model[i].Id">
                 <td>
-                    <input type="number" name="quantity" placeholder="1" value="1" min="1" max="@Model[i].Quantity" class="form-control" style="inline-size:100px">
+                    <input type="number" name="quantity" placeholder="0" value="0" min="0" max="@Model[i].Quantity" class="form-control" style="inline-size:100px">
                 </td>
                 <td>
                     <input type="submit" value="Add To Cart" class="btn btn-primary"/>

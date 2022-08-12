@@ -89,6 +89,7 @@ namespace InventoryManSys.Controllers
             try
             {
                 var warehouse = _Db.Warehouses.Find(id);
+
                 var warehouseVM = _mapper.Map<WarehouseVM>(warehouse);
                 return View(warehouseVM);
             }
