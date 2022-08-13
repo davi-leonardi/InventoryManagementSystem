@@ -105,12 +105,11 @@ namespace InventoryManSys.Controllers
                 var cartProduct = from p in cartProducts
                                   where p.CartId == cart.Id
                                   select p;
-
                 cartVM.Products = cartProduct.ToList();
 
                 List<Warehouse> listofwar1 = new List<Warehouse>();
 
-                foreach (var p in cartProducts)
+                foreach (var p in cartVM.Products)
                 {
                     var product = _Db.Products.Find(p.ProductId);
                     var category = _Db.Categories.Find(product.CategoryId);
@@ -120,12 +119,13 @@ namespace InventoryManSys.Controllers
                 }
 
                 List<Warehouse> listofwar2 = listofwar1.Distinct().ToList();
-
-                foreach(var p in cartProducts)
+                Console.WriteLine($"{listofwar2.Count()}");
+                foreach(var p in cartVM.Products)
                 {
                     var product = _Db.Products.Find(p.ProductId);
                     var category = _Db.Categories.Find(product.CategoryId);
                     var warehouse = _Db.Warehouses.Find(category.WarehouseId);
+
 
                     foreach (var w in listofwar2)
                     {
@@ -137,6 +137,7 @@ namespace InventoryManSys.Controllers
                         if (w.CurrentStorage > w.MaxCapacity)
                         {
                             ViewBag.BadCapacity = "True";
+                            ViewBag.Detail = $"Item: {p.Name}, Warehouse: {w.Name}";
                             return View(cartVM);
                         }
                     }

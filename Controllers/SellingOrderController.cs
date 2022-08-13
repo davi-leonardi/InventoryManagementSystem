@@ -25,10 +25,13 @@ namespace InventoryManSys.Controllers
 
         public IActionResult Index()
         {
-            var products = _Db.Products.ToList();
+            var products = from p in _Db.Products
+                           where p.Quantity > 0
+                           select p;
+
             var productsVM = new List<ProductVM>();
 
-            foreach (var product in products)
+            foreach (var product in products.ToList())
             {
                 var prouductVM = _mapper.Map<ProductVM>(product);
                 productsVM.Add(prouductVM);
