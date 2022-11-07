@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pGS/h/E0HV0M6F4lqxax9N4YeXQWHYDdJst3qBPst300bEIIL9No2gLmYp6DFYQp12zCQSvm8X52HKTHdRtJGA==",
+  "dgSpecHash": "4G4dcdEcSbviFycg0292PcnFNh4kqOei7wRdMDSCjktgNbJHItAJ/x9n2Gp2H6ELxfZfVRKljFKmKn8fOLNeLA==",
   "success": true,
   "projectFilePath": "C:\\C#\\InventoryManSys\\InventoryManSys.csproj",
   "expectedPackageFiles": [
@@ -87,6 +87,8 @@
     "C:\\Users\\PICHAU\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\PICHAU\\.nuget\\packages\\npgsql\\6.0.7\\npgsql.6.0.7.nupkg.sha512",
+    "C:\\Users\\PICHAU\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\6.0.7\\npgsql.entityframeworkcore.postgresql.6.0.7.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\nuget.common\\6.2.1\\nuget.common.6.2.1.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\nuget.configuration\\6.2.1\\nuget.configuration.6.2.1.nupkg.sha512",
     "C:\\Users\\PICHAU\\.nuget\\packages\\nuget.dependencyresolver.core\\5.11.0\\nuget.dependencyresolver.core.5.11.0.nupkg.sha512",

@@ -275,3 +275,5 @@ C:\C#\InventoryManSys\bin\Debug\net6.0\Azure.Identity.dll
 C:\C#\InventoryManSys\bin\Debug\net6.0\Azure.Security.KeyVault.Secrets.dll
 C:\C#\InventoryManSys\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\C#\InventoryManSys\bin\Debug\net6.0\System.Memory.Data.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Npgsql.dll
+C:\C#\InventoryManSys\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

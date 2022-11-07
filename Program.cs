@@ -13,9 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("IMS"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("IMS4"));
 });
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
