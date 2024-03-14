@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InventoryManSys")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5cb1bc282eeadc321c82fa9449ee91de733085f")]
 [assembly: System.Reflection.AssemblyProductAttribute("InventoryManSys")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InventoryManSys")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

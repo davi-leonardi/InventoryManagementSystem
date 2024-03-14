@@ -15,9 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+builder.Configuration.AddAzureKeyVault(
+    new Uri(builder.Configuration["KVURL"]),
+    new DefaultAzureCredential()
+);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("IMS4"));
+    //changed connectionString
+    options.UseNpgsql(builder.Configuration.GetConnectionString("IMS6"));
 });
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -41,16 +47,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
-
-var kvUrl = builder.Configuration["KeyVaultConfig:KVUrl"];
-var tenantId = builder.Configuration["KeyVaultConfig:TenantId"];
-var clientId = builder.Configuration["KeyVaultConfig:ClientId"];
-var clientSecret = builder.Configuration["KeyVaultConfig:ClientSecretId"];
-
-var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-var client = new SecretClient(new Uri(kvUrl), credential);
-
-builder.Configuration.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
 
 builder.Services.AddAutoMapper(typeof(WarehouseProfille));
 

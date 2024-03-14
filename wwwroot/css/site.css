@@ -24,3 +24,11 @@ body {
 .form-floating{
     margin-bottom:10px;
 }
+
+#dleo {
+    font-family: Chillax-Semibold;
+}
+
+#dleoSite{
+    font-family: Chillax-Medium;
+}

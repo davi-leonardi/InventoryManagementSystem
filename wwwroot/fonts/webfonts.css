@@ -1,0 +1,30 @@
+
+@font-face {
+    font-family: 'HelveticaBold';
+    src: url('Helvetica-Bold.woff2') format('woff2'), 
+        url('Helvetica-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Chillax-Medium';
+    src: url('Chillax-Medium.woff2') format('woff2'), 
+        url('Chillax-Medium.woff') format('woff'), 
+        url('Chillax-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Chillax-Semibold';
+    src: url('Chillax-Semibold.woff2') format('woff2'), 
+        url('Chillax-Semibold.woff') format('woff'), 
+        url('Chillax-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}

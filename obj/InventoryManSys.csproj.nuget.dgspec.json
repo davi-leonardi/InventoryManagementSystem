@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\C#\\InventoryManSys\\InventoryManSys.csproj": {}
+    "C:\\Users\\davil\\source\\repos\\InventoryManagementSystem\\InventoryManSys.csproj": {}
   },
   "projects": {
-    "C:\\C#\\InventoryManSys\\InventoryManSys.csproj": {
+    "C:\\Users\\davil\\source\\repos\\InventoryManagementSystem\\InventoryManSys.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\C#\\InventoryManSys\\InventoryManSys.csproj",
+        "projectUniqueName": "C:\\Users\\davil\\source\\repos\\InventoryManagementSystem\\InventoryManSys.csproj",
         "projectName": "InventoryManSys",
-        "projectPath": "C:\\C#\\InventoryManSys\\InventoryManSys.csproj",
-        "packagesPath": "C:\\Users\\PICHAU\\.nuget\\packages\\",
-        "outputPath": "C:\\C#\\InventoryManSys\\obj\\",
+        "projectPath": "C:\\Users\\davil\\source\\repos\\InventoryManagementSystem\\InventoryManSys.csproj",
+        "packagesPath": "C:\\Users\\davil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\davil\\source\\repos\\InventoryManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\PICHAU\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\davil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -50,11 +60,11 @@
             },
             "Azure.Extensions.AspNetCore.Configuration.Secrets": {
               "target": "Package",
-              "version": "[1.2.2, )"
+              "version": "[1.3.0, )"
             },
             "Azure.Identity": {
               "target": "Package",
-              "version": "[1.4.0, )"
+              "version": "[1.10.4, )"
             },
             "Azure.Security.KeyVault.Secrets": {
               "target": "Package",
@@ -110,7 +120,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
